@@ -1,1 +1,1 @@
-#Social Media App using MERN stack.
+# Social Media App using MERN stack.
