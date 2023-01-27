@@ -3,7 +3,7 @@ import Post from './Post/Post.js'
 import useStyles from './styles.js'
 import { useSelector } from 'react-redux'
 import {Grid, CircularProgress} from '@material-ui/core'
-const Posts = () => {
+const Posts = ({currentID, setCurrentID}) => {
   const posts = useSelector((state) => state.posts)
   const classes = useStyles()
   console.log("FORM POSTED!!!",posts)
@@ -13,7 +13,7 @@ const Posts = () => {
     {
       posts.map((post) => (
         <Grid key={post._id} item xs={12} sm={6}>
-          <Post post ={post} />
+          <Post post ={post} setCurrentID={setCurrentID} />
            </Grid>
       ))
     }

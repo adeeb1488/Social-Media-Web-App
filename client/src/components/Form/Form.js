@@ -1,27 +1,48 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import  {TextField, Button, Typography, Paper} from '@material-ui/core'
 import useStyles from './styles.js'
 import FileBase from 'react-file-base64'
 import {useDispatch} from 'react-redux'
-import { createPost } from '../../actions/posts.js'
+import { createPost, updatePost } from '../../actions/posts.js'
+import { useSelector } from 'react-redux'
 
-const Form = () => {
+
+
+const Form = ({currentID, setCurrentID}) => {
+  const post = useSelector((state) => currentID?state.posts.find((p)=>p._id===currentID):null)
   const [postData, setPostData] = useState({
    posted_by:'', post_title:'',post_message:'',post_tags:'',selectedFile:''
   })
   const classes = useStyles()
   const dispatch = useDispatch()
+  useEffect(()=>{
+    if(post)
+    {
+      setPostData(post)
+    }
+  },[post])
   const handleSubmit =(e) =>{
     e.preventDefault()
-    dispatch(createPost(postData))
+    if(currentID)
+    {
+      dispatch(updatePost(currentID, postData))
+    }
+    else{
+      dispatch(createPost(postData))
+      
+    }
+    clear()
   }
   const clear =() =>{
-
+    setCurrentID(null)
+    setPostData(({
+      posted_by:'', post_title:'',post_message:'',post_tags:'',selectedFile:''
+     }))
   }
   return (
     <Paper className={classes.paper}>
       <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-    <Typography variant='h6'>Creating a Post</Typography>
+    <Typography variant='h6'>{currentID? 'Edit ' : "Create "}a Post</Typography>
     <TextField name='creator' variant='outlined' label = "Creator" fullWidth value={postData.posted_by} onChange={(e) =>setPostData({...postData,posted_by:e.target.value})}/>
     <TextField name='title' variant='outlined' label = "Title" fullWidth value={postData.post_title} onChange={(e) =>setPostData({...postData,post_title:e.target.value})}/>
     <TextField name='message' variant='outlined' label = "Message" fullWidth value={postData.post_message} onChange={(e) =>setPostData({...postData,post_message:e.target.value})}/>
