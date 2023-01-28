@@ -5,5 +5,5 @@ This project is created using the MERN stack- MongoDB, Express js, React js and 
 
 ### Future imporvements
 Currently only the basic functionality of the project is working and the remaining features are still in progress. The basic functionality of this web app includes- creating a post, editing a post and deleting a post.
-<br>
-<img src="project-1.jpg" width="1000" height="500"/>
+
+![project demo](project-1.JPG)
