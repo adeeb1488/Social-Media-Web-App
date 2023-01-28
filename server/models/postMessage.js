@@ -15,9 +15,12 @@ const postSchema = mongoose.Schema({
     createdAt:{
         type: Date,
         default: new Date()
-    }
+    },
+    
 
-})
+},
+// { typeKey: '$type' }
+)
 
 const MessagePost = mongoose.model('MessagePost', postSchema)
 
